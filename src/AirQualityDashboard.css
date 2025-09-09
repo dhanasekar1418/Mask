@@ -1,0 +1,198 @@
+/* AirQualityDashboard.css */
+
+/* Base Styles */
+body {
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  background: linear-gradient(120deg, #f0f6ff 0%, #e3e9fa 100%);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.max-w-7xl {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Typography Scales */
+h1 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  color: #22223b;
+  letter-spacing: 0.5px;
+  font-family: inherit;
+  margin: 0;
+}
+h3 {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: #2f365f;
+  margin: 0 0 1rem 0;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.font-bold { font-weight: bold; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-8 { margin-bottom: 2rem; }
+.p-6 { padding: 1.5rem; }
+.p-8 { padding: 2rem; }
+.rounded-lg { border-radius: 1rem; }
+.shadow-lg { box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15); }
+
+/* Cards */
+.bg-white {
+  background: rgba(255,255,255,0.90);
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 4px 20px 0 rgba(35, 48, 122, 0.08);
+  transition: box-shadow 0.2s, transform 0.1s;
+  border-radius: 1rem;
+  position: relative;
+}
+.bg-white::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; height: 34%;
+  background: linear-gradient(170deg, #f3f8fa80 10%, transparent 90%);
+  border-radius: 1rem 1rem 0 0;
+  z-index: 0;
+}
+/* Remove box-shadow and effects on very small screens for clarity */
+@media (max-width:480px) {
+  .bg-white, .shadow-lg { box-shadow: none !important; }
+}
+
+/* Status Cards Responsive Grid */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+.grid-cols-1 { grid-template-columns: 1fr; }
+.md\:grid-cols-2 { grid-template-columns: 1fr 1fr; }
+.lg\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+.lg\:grid-cols-2 { grid-template-columns: 1fr 1fr; }
+
+@media (max-width: 1200px) {
+  .max-w-7xl { max-width: 100vw; }
+}
+@media (max-width: 1024px) {
+  .lg\:grid-cols-4 { grid-template-columns: 1fr 1fr; }
+  .lg\:grid-cols-2, .md\:grid-cols-2 { grid-template-columns: 1fr; }
+}
+
+/* Use single-column on mobiles for all grids */
+@media (max-width: 768px) {
+  .p-6, .p-8 { padding: 1rem; }
+  .grid, .lg\:grid-cols-4,
+  .md\:grid-cols-2, .lg\:grid-cols-2 { grid-template-columns: 1fr; }
+  .mb-8 { margin-bottom: 1rem; }
+  h1 { font-size: 1.5rem; }
+}
+
+/* Cards Extra */
+.status-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.status-card:hover {
+  transform: translateY(-2px) scale(1.015);
+  box-shadow: 0 4px 20px rgba(124, 137, 255, 0.13);
+}
+.status-card .icon {
+  display: flex;
+  align-items: center;
+}
+
+/* Border Colors */
+.border-l-4 { border-left: 4px solid; }
+.border-red-500 { border-left-color: #ef4444; }
+.border-blue-500 { border-left-color: #3b82f6; }
+.border-purple-500 { border-left-color: #8b5cf6; }
+.border-orange-500 { border-left-color: #f59e0b; }
+
+/* Air Quality Indicators */
+.text-green-600 { color: #22c55e; }
+.text-blue-600 { color: #2563eb; }
+.text-yellow-600 { color: #eab308; }
+.text-orange-600 { color: #f59e0b; }
+.text-red-600 { color: #ef4444; }
+.text-red-800 { color: #b91c1c; }
+.bg-green-100 { background: #dcfce7; }
+.bg-blue-100 { background: #dbeafe; }
+.bg-yellow-100 { background: #fef9c3; }
+.bg-orange-100 { background: #ffedd5; }
+.bg-red-100 { background: #fee2e2; }
+.bg-red-200 { background: #fecaca; }
+.fill-gray-800 { fill: #22223b; }
+.fill-gray-600 { fill: #71778e; }
+
+.card-title {
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+  font-weight: 600;
+  color: #2f365f;
+  margin-bottom: 0.5rem;
+}
+.card {
+  border-radius: 1rem;
+  background: rgba(255,255,255,0.98);
+  box-shadow: 0 6px 28px 0 rgba(38, 59, 128, 0.09);
+  padding: 1.25rem;
+}
+
+/* Charts */
+.recharts-wrapper, .ResponsiveContainer {
+  background: transparent !important;
+  min-width: 0;
+}
+.recharts-tooltip-wrapper {
+  font-size: 1em;
+  background: #ffffffee!important;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(30,46,120,0.10) !important;
+  border: none !important;
+  min-width: 110px;
+  max-width: 90vw;
+}
+.recharts-default-legend {
+  font-size: 0.99em;
+  color: #1e2a3a;
+  font-weight: 500;
+  padding: 0.5rem 0;
+}
+
+/* Footer */
+.mt-8 { margin-top: 2rem; }
+.text-sm { font-size: 0.97rem; }
+.footer {
+  padding-top: 1.5rem;
+  color: #adb5bd;
+  font-size: 0.92rem;
+  text-align: center;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  background: #e3e9fa;
+}
+::-webkit-scrollbar-thumb {
+  background: #dbeafe;
+  border-radius: 15px;
+}
+
+/* Force dashboard to fit all screens, no cutoff/scrollbars */
+@media (max-width: 480px) {
+  h1, .text-4xl { font-size: 1.15rem; }
+  .max-w-7xl { max-width: 100vw; }
+  .p-6, .p-8 { padding: 0.5rem; }
+  .mb-4, .mb-8 { margin-bottom: 0.5rem; }
+}
